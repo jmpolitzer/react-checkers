@@ -1,9 +1,9 @@
-import * as actionTypes from "./constants";
+import * as actionTypes from './constants'
 
 export function swapTurns() {
   return {
     type: actionTypes.SWAP_TURNS
-  };
+  }
 }
 
 export function incrementScoreboard(player, isKing) {
@@ -13,7 +13,7 @@ export function incrementScoreboard(player, isKing) {
       player,
       isKing
     }
-  };
+  }
 }
 
 export function decrementScoreboard(player) {
@@ -22,7 +22,7 @@ export function decrementScoreboard(player) {
     payload: {
       player
     }
-  };
+  }
 }
 
 export function setActiveSquare(activeSquare) {
@@ -31,7 +31,7 @@ export function setActiveSquare(activeSquare) {
     payload: {
       activeSquare
     }
-  };
+  }
 }
 
 export function setIsMultiJump(isMultiJump) {
@@ -40,19 +40,19 @@ export function setIsMultiJump(isMultiJump) {
     payload: {
       isMultiJump
     }
-  };
+  }
 }
 
 export function incrementMovesMade() {
   return {
     type: actionTypes.INCREMENT_MOVES_MADE
-  };
+  }
 }
 
 export function resetMovesMade() {
   return {
     type: actionTypes.RESET_MOVES_MADE
-  };
+  }
 }
 
 export function setPositions(positions) {
@@ -61,5 +61,5 @@ export function setPositions(positions) {
     payload: {
       positions
     }
-  };
+  }
 }

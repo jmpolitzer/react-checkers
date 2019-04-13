@@ -1,1 +1,1 @@
-export { default as Checkerboard } from './Checkerboard';
+export { default as Checkerboard } from './Checkerboard'

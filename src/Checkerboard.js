@@ -1,6 +1,6 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect } from 'react'
 
-import reducer from "./state/reducer";
+import reducer from './state/reducer'
 import {
   swapTurns,
   incrementScoreboard,
@@ -10,14 +10,14 @@ import {
   incrementMovesMade,
   resetMovesMade,
   setPositions
-} from "./state/actions";
-import GameEngine from "./engine";
-import Player from "./Player";
-import Square from "./Square";
-import generatePositions from "./helpers/generatePositions";
-import createBoard from "./helpers/createBoard";
+} from './state/actions'
+import GameEngine from './engine'
+import Player from './Player'
+import Square from './Square'
+import generatePositions from './helpers/generatePositions'
+import createBoard from './helpers/createBoard'
 
-const engine = new GameEngine();
+const engine = new GameEngine()
 
 function Checkerboard({ dimensions }) {
   const initialState = {
@@ -30,9 +30,9 @@ function Checkerboard({ dimensions }) {
     isMultiJump: false,
     movesMade: 0,
     positions: generatePositions(dimensions)
-  };
+  }
 
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState)
   const {
     playerTurn,
     scoreboard,
@@ -40,56 +40,56 @@ function Checkerboard({ dimensions }) {
     isMultiJump,
     movesMade,
     positions
-  } = state;
-  const board = createBoard(positions, dimensions);
+  } = state
+  const board = createBoard(positions, dimensions)
 
   /* A user can hold down the m key and make multiple jumps. */
   useEffect(() => {
     window.onkeydown = e => {
-      if (e.key === "m") {
+      if (e.key === 'm') {
         if (!isMultiJump) {
-          dispatch(setIsMultiJump(true));
+          dispatch(setIsMultiJump(true))
         }
       }
-    };
+    }
 
     /* This allows us to swap turns after multiple moves are made. */
     window.onkeyup = e => {
-      if (e.key === "m") {
+      if (e.key === 'm') {
         if (isMultiJump) {
-          dispatch(setIsMultiJump(false));
+          dispatch(setIsMultiJump(false))
 
           if (movesMade > 1) {
-            dispatch(resetMovesMade());
-            dispatch(setActiveSquare(null));
-            dispatch(swapTurns());
+            dispatch(resetMovesMade())
+            dispatch(setActiveSquare(null))
+            dispatch(swapTurns())
           }
         }
       }
-    };
-  });
+    }
+  })
 
   const handlePick = square => {
-    const { occupiedBy } = square;
+    const { occupiedBy } = square
     if (occupiedBy === playerTurn) {
-      movesMade !== 0 && dispatch(resetMovesMade());
-      dispatch(setActiveSquare(square));
+      movesMade !== 0 && dispatch(resetMovesMade())
+      dispatch(setActiveSquare(square))
     }
-  };
+  }
 
   const handleMove = square => {
     if (activeSquare) {
       const jumpedSquare =
         engine.didJump(activeSquare, square) &&
-        engine.getJumpedSquare(activeSquare, square, positions);
-      const becameKing = engine.didBecomeKing(activeSquare, square, dimensions);
+        engine.getJumpedSquare(activeSquare, square, positions)
+      const becameKing = engine.didBecomeKing(activeSquare, square, dimensions)
       const isValid = engine.checkValidMove(
         activeSquare,
         square,
         jumpedSquare,
         isMultiJump,
         movesMade
-      );
+      )
 
       if (isValid) {
         const newPositions = engine.getNewPositions(
@@ -97,25 +97,25 @@ function Checkerboard({ dimensions }) {
           square,
           positions,
           becameKing
-        );
+        )
 
         if (jumpedSquare) {
           const remainingCheckers = newPositions.map(pos => {
             return pos.position.x === jumpedSquare.position.x &&
               pos.position.y === jumpedSquare.position.y
               ? { ...pos, occupiedBy: null }
-              : pos;
-          });
+              : pos
+          })
 
           if (playerTurn !== jumpedSquare.occupiedBy) {
-            dispatch(incrementScoreboard(playerTurn, jumpedSquare.isKinged));
+            dispatch(incrementScoreboard(playerTurn, jumpedSquare.isKinged))
           }
 
           if (becameKing) {
-            dispatch(decrementScoreboard(jumpedSquare.occupiedBy));
+            dispatch(decrementScoreboard(jumpedSquare.occupiedBy))
           }
 
-          dispatch(setPositions(remainingCheckers));
+          dispatch(setPositions(remainingCheckers))
 
           /* User is holding down the m key. */
           if (isMultiJump) {
@@ -123,37 +123,37 @@ function Checkerboard({ dimensions }) {
               ...square,
               isKinged: activeSquare.isKinged,
               occupiedBy: activeSquare.occupiedBy
-            };
+            }
 
-            dispatch(setActiveSquare(newActiveSquare));
+            dispatch(setActiveSquare(newActiveSquare))
           } else {
-            dispatch(setActiveSquare(null));
-            dispatch(swapTurns());
+            dispatch(setActiveSquare(null))
+            dispatch(swapTurns())
           }
         } else {
           if (becameKing) {
-            dispatch(decrementScoreboard(playerTurn === 1 ? 2 : 1));
+            dispatch(decrementScoreboard(playerTurn === 1 ? 2 : 1))
           }
 
-          dispatch(setPositions(newPositions));
-          dispatch(setActiveSquare(null));
-          dispatch(swapTurns());
+          dispatch(setPositions(newPositions))
+          dispatch(setActiveSquare(null))
+          dispatch(swapTurns())
         }
 
-        dispatch(incrementMovesMade());
+        dispatch(incrementMovesMade())
       }
     }
-  };
+  }
 
   return (
     <div
-      style={{ display: "flex", justifyContent: "space-around", width: "50%" }}
+      style={{ display: 'flex', justifyContent: 'space-around', width: '50%' }}
     >
       <Player player={1} playerTurn={playerTurn} scoreboard={scoreboard} />
       <div>
         {Object.keys(board).map((row, j) => {
           return (
-            <div key={j} style={{ display: "flex" }}>
+            <div key={j} style={{ display: 'flex' }}>
               {Object.keys(board[row]).map((positionIndex, k) => {
                 return (
                   <Square
@@ -162,15 +162,15 @@ function Checkerboard({ dimensions }) {
                     handlePick={handlePick}
                     handleMove={handleMove}
                   />
-                );
+                )
               })}
             </div>
-          );
+          )
         })}
       </div>
       <Player player={2} playerTurn={playerTurn} scoreboard={scoreboard} />
     </div>
-  );
+  )
 }
 
-export default Checkerboard;
+export default Checkerboard

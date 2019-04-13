@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 function Checker({
   square,
@@ -11,35 +11,35 @@ function Checker({
     regular: {
       height: 35,
       width: 35,
-      borderRadius: "50%",
+      borderRadius: '50%',
       backgroundColor: color,
-      cursor: "pointer"
+      cursor: 'pointer'
     },
     kinged: {
-      cursor: "pointer",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
+      cursor: 'pointer',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
       height: 27,
       width: 27,
-      borderRadius: "50%",
+      borderRadius: '50%',
       border: `5px solid ${color}`,
       color: color,
-      fontWeight: "bold",
+      fontWeight: 'bold',
       fontSize: 17
     }
-  };
+  }
   return (
     <div
       style={{
-        ...style[isKinged ? "kinged" : "regular"],
+        ...style[isKinged ? 'kinged' : 'regular'],
         ...boardStyle
       }}
       onClick={handlePick ? () => handlePick(square) : null}
     >
-      {isKinged && "K"}
+      {isKinged && 'K'}
     </div>
-  );
+  )
 }
 
-export default Checker;
+export default Checker
