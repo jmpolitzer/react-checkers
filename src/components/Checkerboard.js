@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect } from 'react'
 
-import reducer from './state/reducer'
+import reducer from '../state/reducer'
 import {
   swapTurns,
   incrementScoreboard,
@@ -10,12 +10,12 @@ import {
   incrementMovesMade,
   resetMovesMade,
   setPositions
-} from './state/actions'
-import GameEngine from './engine'
+} from '../state/actions'
+import GameEngine from '../engine'
 import Player from './Player'
 import Square from './Square'
-import generatePositions from './helpers/generatePositions'
-import createBoard from './helpers/createBoard'
+import generatePositions from '../helpers/generatePositions'
+import createBoard from '../helpers/createBoard'
 
 const engine = new GameEngine()
 
