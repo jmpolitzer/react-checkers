@@ -1,7 +1,19 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from "react";
+import ReactDOM from "react-dom";
+import { Checkerboard } from "react-checkers";
 
-import './index.css'
-import App from './App'
+import "./styles.css";
 
-ReactDOM.render(<App />, document.getElementById('root'))
+function App() {
+  return (
+    <div className="App">
+      <div>
+        <h1>Checkers!</h1>
+      </div>
+      <Checkerboard dimensions={8} />
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
