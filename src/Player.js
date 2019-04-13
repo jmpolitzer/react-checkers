@@ -43,6 +43,7 @@ function Player({ player, playerTurn, scoreboard }) {
           return (
             <Checker
               key={i}
+              className={`player${player}`}
               color={player === 1 ? 'red' : 'black'}
               boardStyle={styles.capturedChecker}
             />

@@ -5,7 +5,8 @@ function Checker({
   square: { isKinged } = {},
   handlePick,
   color,
-  boardStyle
+  boardStyle,
+  className
 }) {
   const style = {
     regular: {
@@ -31,6 +32,7 @@ function Checker({
   }
   return (
     <div
+      className={className}
       style={{
         ...style[isKinged ? 'kinged' : 'regular'],
         ...boardStyle
