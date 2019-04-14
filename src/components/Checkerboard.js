@@ -1,23 +1,31 @@
-import React from 'react'
+import useCheckers from '../hooks/useCheckers'
 
 import Player from './Player'
 import Square from './Square'
-import useCheckers from '../hooks/useCheckers'
 
-function Checkerboard({ dimensions }) {
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
+
+import { checkerboard, checkerboardRow } from './styles'
+
+function Checkerboard({ dimensions, styles = {}, playerColors = {} }) {
   const { playerTurn, scoreboard, board, handlePick, handleMove } = useCheckers(
     dimensions
   )
 
   return (
-    <div
-      style={{ display: 'flex', justifyContent: 'space-around', width: '50%' }}
-    >
-      <Player player={1} playerTurn={playerTurn} scoreboard={scoreboard} />
+    <div css={styles.checkerboard || checkerboard}>
+      <Player
+        player={1}
+        playerTurn={playerTurn}
+        scoreboard={scoreboard}
+        styles={styles}
+        playerColors={playerColors}
+      />
       <div>
         {Object.keys(board).map((row, j) => {
           return (
-            <div key={j} style={{ display: 'flex' }}>
+            <div key={j} css={styles.checkerboardRow || checkerboardRow}>
               {Object.keys(board[row]).map((positionIndex, k) => {
                 return (
                   <Square
@@ -25,6 +33,8 @@ function Checkerboard({ dimensions }) {
                     square={board[row][positionIndex]}
                     handlePick={handlePick}
                     handleMove={handleMove}
+                    styles={styles}
+                    playerColors={playerColors}
                   />
                 )
               })}
@@ -32,7 +42,13 @@ function Checkerboard({ dimensions }) {
           )
         })}
       </div>
-      <Player player={2} playerTurn={playerTurn} scoreboard={scoreboard} />
+      <Player
+        player={2}
+        playerTurn={playerTurn}
+        scoreboard={scoreboard}
+        styles={styles}
+        playerColors={playerColors}
+      />
     </div>
   )
 }

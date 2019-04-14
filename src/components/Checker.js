@@ -1,42 +1,39 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
+
+import { regularChecker, kingedChecker } from './styles'
 
 function Checker({
   square,
-  square: { isKinged } = {},
+  square: { isKinged, occupiedBy } = {},
   handlePick,
-  color,
-  boardStyle,
-  className
+  label,
+  scoreboardStyle,
+  styles,
+  playerColors
 }) {
-  const style = {
-    regular: {
-      height: 35,
-      width: 35,
-      borderRadius: '50%',
-      backgroundColor: color,
-      cursor: 'pointer'
-    },
-    kinged: {
-      cursor: 'pointer',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: 27,
-      width: 27,
-      borderRadius: '50%',
-      border: `5px solid ${color}`,
-      color: color,
-      fontWeight: 'bold',
-      fontSize: 17
-    }
-  }
+  const { player1, player2 } = playerColors
+  const color = occupiedBy
+    ? occupiedBy === 1
+      ? player1 || 'white'
+      : player2 || 'red'
+    : label === 'player1'
+      ? player1 || 'red'
+      : player2 || 'black'
+
   return (
     <div
-      className={className}
-      style={{
-        ...style[isKinged ? 'kinged' : 'regular'],
-        ...boardStyle
-      }}
+      css={[
+        isKinged
+          ? styles.kingedChecker
+            ? styles.kingedChecker(color)
+            : kingedChecker(color)
+          : styles.regularChecker
+            ? styles.regularChecker(color)
+            : regularChecker(color),
+        scoreboardStyle
+      ]}
+      data-checker={label && label}
       onClick={handlePick ? () => handlePick(square) : null}
     >
       {isKinged && 'K'}

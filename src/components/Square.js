@@ -1,6 +1,9 @@
-import React from 'react'
-
 import Checker from './Checker'
+
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
+
+import { boardSquare } from './styles'
 
 function Square({
   square,
@@ -9,28 +12,28 @@ function Square({
     occupiedBy
   },
   handlePick,
-  handleMove
+  handleMove,
+  styles,
+  playerColors
 }) {
   const isEvenPosition = (x + 1 * y) % 2 === 0
 
   return (
     <div
       data-position={`[${x}, ${y}]`}
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 50,
-        width: 50,
-        backgroundColor: isEvenPosition ? 'black' : 'tan'
-      }}
+      css={
+        styles.boardSquare
+          ? styles.boardSquare(isEvenPosition)
+          : boardSquare(isEvenPosition)
+      }
       onClick={() => (!occupiedBy ? handleMove(square) : {})}
     >
       {occupiedBy !== null && isEvenPosition && (
         <Checker
           square={square}
           handlePick={handlePick}
-          color={occupiedBy === 1 ? 'white' : 'red'}
+          styles={styles}
+          playerColors={playerColors}
         />
       )}
     </div>

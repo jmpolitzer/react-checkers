@@ -77,5 +77,8 @@
       "eslint --fix",
       "git add"
     ]
+  },
+  "dependencies": {
+    "@emotion/core": "^10.0.10"
   }
 }

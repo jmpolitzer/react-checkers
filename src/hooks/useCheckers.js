@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react'
+import { useReducer, useEffect } from 'react'
 
 import reducer from '../state/reducer'
 import {
@@ -27,7 +27,7 @@ function useCheckers(dimensions) {
     activeSquare: null,
     isMultiJump: false,
     movesMade: 0,
-    positions: generatePositions(dimensions)
+    positions: generatePositions(dimensions) // TODO: Expose this method to package
   }
 
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -39,7 +39,7 @@ function useCheckers(dimensions) {
     movesMade,
     positions
   } = state
-  const board = createBoard(positions, dimensions)
+  const board = createBoard(positions, dimensions) // TODO: Expose this method to package
 
   /* A user can hold down the m key and make multiple jumps. */
   useEffect(() => {
