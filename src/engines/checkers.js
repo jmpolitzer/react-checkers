@@ -1,6 +1,6 @@
 import replaceAt from '../helpers/replaceAt'
 
-class GameEngine {
+class CheckersEngine {
   didBecomeKing(activeSquare, square, dimensions) {
     const {
       position: { y }
@@ -118,4 +118,4 @@ class GameEngine {
   }
 }
 
-export default GameEngine
+export default CheckersEngine

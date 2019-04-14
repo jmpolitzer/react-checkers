@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Checker from '../Checker'
+import Checker from './Checker'
 
 function Square({
   square,

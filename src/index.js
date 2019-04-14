@@ -1,1 +1,4 @@
-export { default as Checkerboard } from './components/Checkerboard'
+import useCheckers from './hooks/useCheckers'
+import Checkerboard from './components/Checkerboard'
+
+export { useCheckers, Checkerboard }

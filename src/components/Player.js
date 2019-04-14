@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Checker from '../Checker'
+import Checker from './Checker'
 
 function Player({ player, playerTurn, scoreboard }) {
   const color = player === 1 ? 'black' : 'red'
