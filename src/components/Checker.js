@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 
@@ -39,6 +41,15 @@ function Checker({
       {isKinged && 'K'}
     </div>
   )
+}
+
+Checker.propTypes = {
+  square: PropTypes.object.isRequired,
+  handlePick: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  scoreboardStyle: PropTypes.object,
+  styles: PropTypes.object,
+  playerColors: PropTypes.object
 }
 
 export default Checker

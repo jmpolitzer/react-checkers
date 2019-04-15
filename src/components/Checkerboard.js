@@ -1,11 +1,11 @@
+import PropTypes from 'prop-types'
 import useCheckers from '../hooks/useCheckers'
-
-import Player from './Player'
-import Square from './Square'
 
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 
+import Player from './Player'
+import Square from './Square'
 import { checkerboard, checkerboardRow } from './styles'
 
 function Checkerboard({ dimensions, styles = {}, playerColors = {} }) {
@@ -51,6 +51,12 @@ function Checkerboard({ dimensions, styles = {}, playerColors = {} }) {
       />
     </div>
   )
+}
+
+Checkerboard.propTypes = {
+  dimensions: PropTypes.number.isRequired,
+  styles: PropTypes.object,
+  playerColors: PropTypes.object
 }
 
 export default Checkerboard

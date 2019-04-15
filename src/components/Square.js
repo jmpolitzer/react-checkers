@@ -1,7 +1,9 @@
-import Checker from './Checker'
+import PropTypes from 'prop-types'
 
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
+
+import Checker from './Checker'
 
 import { boardSquare } from './styles'
 
@@ -38,6 +40,14 @@ function Square({
       )}
     </div>
   )
+}
+
+Square.propTypes = {
+  square: PropTypes.object.isRequired,
+  handlePick: PropTypes.func.isRequired,
+  handleMove: PropTypes.func.isRequired,
+  styles: PropTypes.object,
+  playerColors: PropTypes.object
 }
 
 export default Square
