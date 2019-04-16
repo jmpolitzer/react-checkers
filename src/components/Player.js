@@ -31,7 +31,7 @@ function Player({ player, playerTurn, scoreboard, styles, playerColors }) {
           return (
             <Checker
               key={i}
-              label={`player${player}`}
+              label={`player${player}-checker`}
               scoreboardStyle={styles.capturedChecker || capturedChecker}
               styles={styles}
               playerColors={playerColors}

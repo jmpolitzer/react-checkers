@@ -22,7 +22,7 @@ function Square({
 
   return (
     <div
-      data-position={`[${x}, ${y}]`}
+      data-testid={`[${x}, ${y}]`}
       css={
         styles.boardSquare
           ? styles.boardSquare(isEvenPosition)

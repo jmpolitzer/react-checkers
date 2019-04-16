@@ -35,7 +35,7 @@ function Checker({
             : regularChecker(color),
         scoreboardStyle
       ]}
-      data-checker={label && label}
+      data-testid={label && label}
       onClick={handlePick ? () => handlePick(square) : null}
     >
       {isKinged && 'K'}
@@ -44,8 +44,8 @@ function Checker({
 }
 
 Checker.propTypes = {
-  square: PropTypes.object.isRequired,
-  handlePick: PropTypes.func.isRequired,
+  square: PropTypes.object,
+  handlePick: PropTypes.func,
   label: PropTypes.string,
   scoreboardStyle: PropTypes.object,
   styles: PropTypes.object,

@@ -1,7 +1,6 @@
 import * as actionTypes from './constants'
 
 function reducer(state, action) {
-  console.log(action)
   switch (action.type) {
     case actionTypes.SWAP_TURNS:
       return {
