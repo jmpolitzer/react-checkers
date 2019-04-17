@@ -19,7 +19,7 @@ function Checker({
     ? occupiedBy === 1
       ? player1 || 'white'
       : player2 || 'red'
-    : label === 'player1'
+    : label === 'player1-checker'
       ? player1 || 'red'
       : player2 || 'black'
 

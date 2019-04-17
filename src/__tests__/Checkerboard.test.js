@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, cleanup } from 'react-testing-library'
+import { fireEvent, render, cleanup } from 'react-testing-library'
 import 'jest-dom/extend-expect'
 
 import { Checkerboard } from '../index'
@@ -56,5 +56,80 @@ describe('Checkerboard', () => {
     getByTestId('[1, 5]').click()
 
     expect(getAllByTestId('player1-checker').length).toBe(1)
+  })
+
+  it("should jump two checkers moving forward if the m key is pressed down and the player's score should be incremented by 2", () => {
+    const { container, getByTestId, getAllByTestId } = render(
+      <Checkerboard dimensions={8} />
+    )
+
+    getByTestId('[4, 2]').children[0].click()
+    getByTestId('[3, 3]').click()
+    getByTestId('[3, 5]').children[0].click()
+    getByTestId('[4, 4]').click()
+    getByTestId('[3, 3]').children[0].click()
+    getByTestId('[2, 4]').click()
+    getByTestId('[2, 6]').children[0].click()
+    getByTestId('[3, 5]').click()
+    getByTestId('[5, 1]').children[0].click()
+    getByTestId('[4, 2]').click()
+
+    fireEvent.keyDown(container, { key: 'm', code: 77, charCode: 77 })
+    getByTestId('[1, 5]').children[0].click()
+    getByTestId('[3, 3]').click()
+    getByTestId('[5, 1]').click()
+
+    expect(getAllByTestId('player2-checker').length).toBe(2)
+  })
+
+  it('should not be able jump two checkers moving forward if a key other than m is pressed down', () => {
+    const { container, getByTestId, getAllByTestId } = render(
+      <Checkerboard dimensions={8} />
+    )
+
+    getByTestId('[4, 2]').children[0].click()
+    getByTestId('[3, 3]').click()
+    getByTestId('[3, 5]').children[0].click()
+    getByTestId('[4, 4]').click()
+    getByTestId('[3, 3]').children[0].click()
+    getByTestId('[2, 4]').click()
+    getByTestId('[2, 6]').children[0].click()
+    getByTestId('[3, 5]').click()
+    getByTestId('[5, 1]').children[0].click()
+    getByTestId('[4, 2]').click()
+
+    fireEvent.keyDown(container, { key: 'n', code: 77, charCode: 77 })
+    getByTestId('[1, 5]').children[0].click()
+    getByTestId('[3, 3]').click()
+    getByTestId('[5, 1]').click()
+
+    /* score will still increment by one */
+    expect(getAllByTestId('player2-checker').length).toBe(1)
+  })
+
+  it('should not be able jump two checkers moving forward if the m key is lifted in the middle of a double jump', () => {
+    const { container, getByTestId, getAllByTestId } = render(
+      <Checkerboard dimensions={8} />
+    )
+
+    getByTestId('[4, 2]').children[0].click()
+    getByTestId('[3, 3]').click()
+    getByTestId('[3, 5]').children[0].click()
+    getByTestId('[4, 4]').click()
+    getByTestId('[3, 3]').children[0].click()
+    getByTestId('[2, 4]').click()
+    getByTestId('[2, 6]').children[0].click()
+    getByTestId('[3, 5]').click()
+    getByTestId('[5, 1]').children[0].click()
+    getByTestId('[4, 2]').click()
+
+    fireEvent.keyDown(container, { key: 'm', code: 77, charCode: 77 })
+    getByTestId('[1, 5]').children[0].click()
+    fireEvent.keyUp(container, { key: 'm', code: 77, charCode: 77 })
+    getByTestId('[3, 3]').click()
+    getByTestId('[5, 1]').click()
+
+    /* score will still increment by one */
+    expect(getAllByTestId('player2-checker').length).toBe(1)
   })
 })
