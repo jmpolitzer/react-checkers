@@ -78,6 +78,7 @@ describe('Checkerboard', () => {
     getByTestId('[1, 5]').children[0].click()
     getByTestId('[3, 3]').click()
     getByTestId('[5, 1]').click()
+    fireEvent.keyUp(container, { key: 'm', code: 77, charCode: 77 })
 
     expect(getAllByTestId('player2-checker').length).toBe(2)
   })
@@ -102,6 +103,7 @@ describe('Checkerboard', () => {
     getByTestId('[1, 5]').children[0].click()
     getByTestId('[3, 3]').click()
     getByTestId('[5, 1]').click()
+    fireEvent.keyUp(container, { key: 'n', code: 77, charCode: 77 })
 
     /* score will still increment by one */
     expect(getAllByTestId('player2-checker').length).toBe(1)
@@ -124,12 +126,136 @@ describe('Checkerboard', () => {
     getByTestId('[4, 2]').click()
 
     fireEvent.keyDown(container, { key: 'm', code: 77, charCode: 77 })
+    fireEvent.keyDown(container, { key: 'm', code: 77, charCode: 77 }) // Does not set isMultiJump to true if already true
     getByTestId('[1, 5]').children[0].click()
     fireEvent.keyUp(container, { key: 'm', code: 77, charCode: 77 })
+    fireEvent.keyUp(container, { key: 'm', code: 77, charCode: 77 }) // Does not set isMultiJump to false if already false
     getByTestId('[3, 3]').click()
     getByTestId('[5, 1]').click()
 
     /* score will still increment by one */
     expect(getAllByTestId('player2-checker').length).toBe(1)
+  })
+
+  it("should decrement the opposing player's score when player is kinged by jump", () => {
+    const { container, getByTestId, getAllByTestId, queryByTestId } = render(
+      <Checkerboard dimensions={8} />
+    )
+
+    getByTestId('[4, 2]').children[0].click()
+    getByTestId('[3, 3]').click()
+    getByTestId('[1, 5]').children[0].click()
+    getByTestId('[2, 4]').click()
+    getByTestId('[3, 3]').children[0].click()
+    getByTestId('[1, 5]').click()
+    expect(getAllByTestId('player1-checker').length).toBe(1)
+    getByTestId('[3, 5]').children[0].click()
+    getByTestId('[4, 4]').click()
+    getByTestId('[5, 1]').children[0].click()
+    getByTestId('[4, 2]').click()
+    getByTestId('[4, 4]').children[0].click()
+    getByTestId('[5, 3]').click()
+    getByTestId('[4, 2]').children[0].click()
+    getByTestId('[3, 3]').click()
+    getByTestId('[5, 5]').children[0].click()
+    getByTestId('[6, 4]').click()
+    getByTestId('[6, 0]').children[0].click()
+    getByTestId('[5, 1]').click()
+
+    fireEvent.keyDown(container, { key: 'm', code: 77, charCode: 77 })
+    getByTestId('[0, 6]').children[0].click()
+    getByTestId('[2, 4]').click()
+    getByTestId('[4, 2]').click()
+    getByTestId('[6, 0]').click()
+    fireEvent.keyUp(container, { key: 'm', code: 77, charCode: 77 })
+
+    expect(queryByTestId('player1-checker')).toBeNull()
+    expect(getAllByTestId('player2-checker').length).toBe(3)
+    expect(getByTestId('[6, 0]')).toHaveTextContent('K')
+  })
+
+  it("should decrement player1's score when player2 is kinged by single move", () => {
+    const { getByTestId, getAllByTestId, queryByTestId } = render(
+      <Checkerboard dimensions={8} />
+    )
+
+    getByTestId('[0, 2]').children[0].click()
+    getByTestId('[1, 3]').click()
+    getByTestId('[1, 5]').children[0].click()
+    getByTestId('[0, 4]').click()
+    getByTestId('[1, 3]').children[0].click()
+    getByTestId('[2, 4]').click()
+    getByTestId('[0, 4]').children[0].click()
+    getByTestId('[1, 3]').click()
+    getByTestId('[2, 2]').children[0].click()
+    getByTestId('[3, 3]').click()
+    getByTestId('[1, 3]').children[0].click()
+    getByTestId('[0, 2]').click()
+    getByTestId('[1, 1]').children[0].click()
+    getByTestId('[2, 2]').click()
+    getByTestId('[3, 5]').children[0].click()
+    getByTestId('[1, 3]').click()
+    expect(getAllByTestId('player2-checker').length).toBe(1)
+    getByTestId('[2, 2]').children[0].click()
+    getByTestId('[0, 4]').click()
+    expect(getAllByTestId('player1-checker').length).toBe(1)
+    getByTestId('[0, 6]').children[0].click()
+    getByTestId('[1, 5]').click()
+    getByTestId('[0, 0]').children[0].click()
+    getByTestId('[1, 1]').click()
+    getByTestId('[1, 5]').children[0].click()
+    getByTestId('[2, 4]').click()
+    getByTestId('[1, 1]').children[0].click()
+    getByTestId('[2, 2]').click()
+    getByTestId('[0, 2]').children[0].click()
+    getByTestId('[1, 1]').click()
+    getByTestId('[2, 2]').children[0].click()
+    getByTestId('[1, 3]').click()
+    getByTestId('[1, 1]').children[0].click()
+    getByTestId('[0, 0]').click()
+
+    expect(queryByTestId('player1-checker')).toBeNull()
+    expect(getByTestId('[0, 0]')).toHaveTextContent('K')
+  })
+
+  it("should decrement the player2's score when player1 is kinged by single move", () => {
+    const { getByTestId, getAllByTestId, queryByTestId } = render(
+      <Checkerboard dimensions={8} />
+    )
+
+    getByTestId('[0, 2]').children[0].click()
+    getByTestId('[1, 3]').click()
+    getByTestId('[1, 5]').children[0].click()
+    getByTestId('[2, 4]').click()
+    getByTestId('[1, 3]').children[0].click()
+    getByTestId('[0, 4]').click()
+    getByTestId('[0, 6]').children[0].click()
+    getByTestId('[1, 5]').click()
+    getByTestId('[2, 2]').children[0].click()
+    getByTestId('[1, 3]').click()
+    getByTestId('[2, 4]').children[0].click()
+    getByTestId('[0, 2]').click()
+    expect(getAllByTestId('player2-checker').length).toBe(1)
+    getByTestId('[1, 1]').children[0].click()
+    getByTestId('[2, 2]').click()
+    getByTestId('[1, 5]').children[0].click()
+    getByTestId('[2, 4]').click()
+    getByTestId('[0, 4]').children[0].click()
+    getByTestId('[1, 5]').click()
+    getByTestId('[2, 4]').children[0].click()
+    getByTestId('[1, 3]').click()
+    getByTestId('[1, 5]').children[0].click()
+    getByTestId('[0, 6]').click()
+    getByTestId('[2, 6]').children[0].click()
+    getByTestId('[1, 5]').click()
+    getByTestId('[2, 2]').children[0].click()
+    getByTestId('[3, 3]').click()
+    getByTestId('[1, 7]').children[0].click()
+    getByTestId('[2, 6]').click()
+    getByTestId('[0, 6]').children[0].click()
+    getByTestId('[1, 7]').click()
+
+    expect(queryByTestId('player2-checker')).toBeNull()
+    expect(getByTestId('[1, 7]')).toHaveTextContent('K')
   })
 })

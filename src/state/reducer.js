@@ -60,9 +60,6 @@ function reducer(state, action) {
         ...state,
         positions: action.payload.positions
       }
-
-    default:
-      throw new Error()
   }
 }
 
