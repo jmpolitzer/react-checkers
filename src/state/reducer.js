@@ -25,7 +25,7 @@ function reducer(state, action) {
         scoreboard: {
           ...state.scoreboard,
           [action.payload.player]:
-            state.scoreboard[action.payload.player] > 1
+            state.scoreboard[action.payload.player] > 0
               ? state.scoreboard[action.payload.player] - 1
               : 0
         }
