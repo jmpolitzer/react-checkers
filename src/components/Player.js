@@ -1,8 +1,9 @@
-import Checker from './Checker'
+import PropTypes from 'prop-types'
 
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 
+import Checker from './Checker'
 import {
   playerScoreboard,
   playerName,
@@ -30,7 +31,7 @@ function Player({ player, playerTurn, scoreboard, styles, playerColors }) {
           return (
             <Checker
               key={i}
-              label={`player${player}`}
+              label={`player${player}-checker`}
               scoreboardStyle={styles.capturedChecker || capturedChecker}
               styles={styles}
               playerColors={playerColors}
@@ -40,6 +41,14 @@ function Player({ player, playerTurn, scoreboard, styles, playerColors }) {
       </div>
     </div>
   )
+}
+
+Player.propTypes = {
+  player: PropTypes.number.isRequired,
+  playerTurn: PropTypes.number.isRequired,
+  scoreboard: PropTypes.object.isRequired,
+  styles: PropTypes.object,
+  playerColors: PropTypes.object
 }
 
 export default Player

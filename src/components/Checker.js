@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 
@@ -17,7 +19,7 @@ function Checker({
     ? occupiedBy === 1
       ? player1 || 'white'
       : player2 || 'red'
-    : label === 'player1'
+    : label === 'player1-checker'
       ? player1 || 'red'
       : player2 || 'black'
 
@@ -33,12 +35,21 @@ function Checker({
             : regularChecker(color),
         scoreboardStyle
       ]}
-      data-checker={label && label}
+      data-testid={label && label}
       onClick={handlePick ? () => handlePick(square) : null}
     >
       {isKinged && 'K'}
     </div>
   )
+}
+
+Checker.propTypes = {
+  square: PropTypes.object,
+  handlePick: PropTypes.func,
+  label: PropTypes.string,
+  scoreboardStyle: PropTypes.object,
+  styles: PropTypes.object,
+  playerColors: PropTypes.object
 }
 
 export default Checker

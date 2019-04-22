@@ -86,7 +86,8 @@ function useCheckers(dimensions) {
         square,
         jumpedSquare,
         isMultiJump,
-        movesMade
+        movesMade,
+        playerTurn
       )
 
       if (isValid) {
@@ -105,15 +106,12 @@ function useCheckers(dimensions) {
               : pos
           })
 
-          if (playerTurn !== jumpedSquare.occupiedBy) {
-            dispatch(incrementScoreboard(playerTurn, jumpedSquare.isKinged))
-          }
+          dispatch(setPositions(remainingCheckers))
+          dispatch(incrementScoreboard(playerTurn, jumpedSquare.isKinged))
 
           if (becameKing) {
             dispatch(decrementScoreboard(jumpedSquare.occupiedBy))
           }
-
-          dispatch(setPositions(remainingCheckers))
 
           /* User is holding down the m key. */
           if (isMultiJump) {

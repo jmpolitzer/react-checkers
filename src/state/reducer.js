@@ -1,7 +1,6 @@
 import * as actionTypes from './constants'
 
 function reducer(state, action) {
-  console.log(action)
   switch (action.type) {
     case actionTypes.SWAP_TURNS:
       return {
@@ -26,7 +25,7 @@ function reducer(state, action) {
         scoreboard: {
           ...state.scoreboard,
           [action.payload.player]:
-            state.scoreboard[action.payload.player] > 1
+            state.scoreboard[action.payload.player] > 0
               ? state.scoreboard[action.payload.player] - 1
               : 0
         }
@@ -61,9 +60,6 @@ function reducer(state, action) {
         ...state,
         positions: action.payload.positions
       }
-
-    default:
-      throw new Error()
   }
 }
 

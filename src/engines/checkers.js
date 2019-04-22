@@ -23,7 +23,14 @@ class CheckersEngine {
     return Math.abs(newX - x) === 2 && Math.abs(newY - y) === 2
   }
 
-  checkValidMove(activeSquare, square, jumpedSquare, isMultiJump, movesMade) {
+  checkValidMove(
+    activeSquare,
+    square,
+    jumpedSquare,
+    isMultiJump,
+    movesMade,
+    playerTurn
+  ) {
     const {
       position: { x: newX, y: newY }
     } = square
@@ -31,9 +38,9 @@ class CheckersEngine {
     const { exes, whys } = this.getPossiblePositions(activeSquare)
     const jumped = this.didJump(activeSquare, square)
 
-    /* Check and see whether we're jumping an occupied square; if not, prevent move. */
+    /* Check and see whether we're jumping an opponent's occupied square; if not, prevent move. */
     if (jumped) {
-      if (jumpedSquare.occupiedBy) {
+      if (jumpedSquare.occupiedBy && playerTurn !== jumpedSquare.occupiedBy) {
         return exes.includes(newX) && whys.includes(newY)
       }
     } else {
