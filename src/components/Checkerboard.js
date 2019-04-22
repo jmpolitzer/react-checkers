@@ -8,7 +8,7 @@ import Player from './Player'
 import Square from './Square'
 import { checkerboard, checkerboardRow } from './styles'
 
-function Checkerboard({ dimensions, styles = {}, playerColors = {} }) {
+function Checkerboard({ dimensions = 8, styles = {}, playerColors = {} }) {
   const { playerTurn, scoreboard, board, handlePick, handleMove } = useCheckers(
     dimensions
   )
@@ -54,7 +54,7 @@ function Checkerboard({ dimensions, styles = {}, playerColors = {} }) {
 }
 
 Checkerboard.propTypes = {
-  dimensions: PropTypes.number.isRequired,
+  dimensions: PropTypes.number,
   styles: PropTypes.object,
   playerColors: PropTypes.object
 }

@@ -8,13 +8,19 @@ afterEach(cleanup)
 
 describe('Checkerboard', () => {
   it('should render a board with a number of squares equal to dimensions * dimensions', () => {
-    const { getAllByTestId } = render(<Checkerboard dimensions={8} />)
+    const { getAllByTestId } = render(<Checkerboard />)
 
     expect(getAllByTestId(/\[.*?\]/).length).toBe(64)
   })
 
+  it('should render a board with custom styles and dimensions', () => {
+    const { getAllByTestId } = render(<Checkerboard dimensions={10} />)
+
+    expect(getAllByTestId(/\[.*?\]/).length).toBe(100)
+  })
+
   it("should move a single checker one forward-diagonal square if it the player's turn", () => {
-    const { getByTestId } = render(<Checkerboard dimensions={8} />)
+    const { getByTestId } = render(<Checkerboard />)
 
     getByTestId('[4, 2]').children[0].click()
     getByTestId('[3, 3]').click()
@@ -24,7 +30,7 @@ describe('Checkerboard', () => {
   })
 
   it("should not move a single checker one forward-diagonal square if it is not the player's turn", () => {
-    const { getByTestId } = render(<Checkerboard dimensions={8} />)
+    const { getByTestId } = render(<Checkerboard />)
 
     getByTestId('[1, 5]').children[0].click()
     getByTestId('[2, 4]').click()
@@ -34,7 +40,7 @@ describe('Checkerboard', () => {
   })
 
   it('should not move a single checker two forward-diagonal squares if it is not a jump', () => {
-    const { getByTestId } = render(<Checkerboard dimensions={8} />)
+    const { getByTestId } = render(<Checkerboard />)
 
     getByTestId('[4, 2]').children[0].click()
     getByTestId('[2, 4]').click()
@@ -44,9 +50,7 @@ describe('Checkerboard', () => {
   })
 
   it("should jump a single checker and player's score should be incremented by 1", () => {
-    const { getByTestId, getAllByTestId } = render(
-      <Checkerboard dimensions={8} />
-    )
+    const { getByTestId, getAllByTestId } = render(<Checkerboard />)
 
     getByTestId('[4, 2]').children[0].click()
     getByTestId('[3, 3]').click()
@@ -59,9 +63,7 @@ describe('Checkerboard', () => {
   })
 
   it("should jump two checkers moving forward if the m key is pressed down and the player's score should be incremented by 2", () => {
-    const { container, getByTestId, getAllByTestId } = render(
-      <Checkerboard dimensions={8} />
-    )
+    const { container, getByTestId, getAllByTestId } = render(<Checkerboard />)
 
     getByTestId('[4, 2]').children[0].click()
     getByTestId('[3, 3]').click()
@@ -84,9 +86,7 @@ describe('Checkerboard', () => {
   })
 
   it('should not be able jump two checkers moving forward if a key other than m is pressed down', () => {
-    const { container, getByTestId, getAllByTestId } = render(
-      <Checkerboard dimensions={8} />
-    )
+    const { container, getByTestId, getAllByTestId } = render(<Checkerboard />)
 
     getByTestId('[4, 2]').children[0].click()
     getByTestId('[3, 3]').click()
@@ -110,9 +110,7 @@ describe('Checkerboard', () => {
   })
 
   it('should not be able jump two checkers moving forward if the m key is lifted in the middle of a double jump', () => {
-    const { container, getByTestId, getAllByTestId } = render(
-      <Checkerboard dimensions={8} />
-    )
+    const { container, getByTestId, getAllByTestId } = render(<Checkerboard />)
 
     getByTestId('[4, 2]').children[0].click()
     getByTestId('[3, 3]').click()
@@ -139,7 +137,7 @@ describe('Checkerboard', () => {
 
   it("should decrement the opposing player's score when player is kinged by jump", () => {
     const { container, getByTestId, getAllByTestId, queryByTestId } = render(
-      <Checkerboard dimensions={8} />
+      <Checkerboard />
     )
 
     getByTestId('[4, 2]').children[0].click()
@@ -176,7 +174,7 @@ describe('Checkerboard', () => {
 
   it("should increment the player's score by two when a king is jumped", () => {
     const { container, getByTestId, getAllByTestId, queryByTestId } = render(
-      <Checkerboard dimensions={8} />
+      <Checkerboard />
     )
 
     getByTestId('[4, 2]').children[0].click()
@@ -223,7 +221,7 @@ describe('Checkerboard', () => {
 
   it("should decrement player1's score when player2 is kinged by single move", () => {
     const { getByTestId, getAllByTestId, queryByTestId } = render(
-      <Checkerboard dimensions={8} />
+      <Checkerboard />
     )
 
     getByTestId('[0, 2]').children[0].click()
@@ -267,7 +265,7 @@ describe('Checkerboard', () => {
 
   it("should decrement the player2's score when player1 is kinged by single move", () => {
     const { getByTestId, getAllByTestId, queryByTestId } = render(
-      <Checkerboard dimensions={8} />
+      <Checkerboard />
     )
 
     getByTestId('[0, 2]').children[0].click()
@@ -307,9 +305,7 @@ describe('Checkerboard', () => {
   })
 
   it("should not decrement the opposing player's score when player is kinged if opposing player has not captured any checkers", () => {
-    const { getByTestId, queryByTestId } = render(
-      <Checkerboard dimensions={8} />
-    )
+    const { getByTestId, queryByTestId } = render(<Checkerboard />)
 
     getByTestId('[0, 2]').children[0].click()
     getByTestId('[1, 3]').click()
