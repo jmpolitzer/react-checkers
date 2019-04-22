@@ -4,6 +4,76 @@ import 'jest-dom/extend-expect'
 
 import { Checkerboard } from '../index'
 
+const styles = {
+  checkerboard: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    width: '50%'
+  },
+  checkerboardRow: {
+    display: 'flex'
+  },
+  boardSquare: isEvenPosition => ({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    width: 50,
+    backgroundColor: isEvenPosition ? 'black' : 'tan'
+  }),
+  regularChecker: color => ({
+    height: 35,
+    width: 35,
+    borderRadius: '50%',
+    backgroundColor: color,
+    cursor: 'pointer'
+  }),
+  kingedChecker: color => ({
+    cursor: 'pointer',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 27,
+    width: 27,
+    borderRadius: '50%',
+    border: `5px solid ${color}`,
+    color: color,
+    fontWeight: 'bold',
+    fontSize: 17
+  }),
+  playerScoreboard: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  playerName: (playerTurn, player, color) => ({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '50px',
+    width: '50px',
+    border: `5px solid ${color}`,
+    borderRadius: '50%',
+    color: playerTurn === player ? 'white' : color,
+    backgroundColor: playerTurn === player ? color : 'white',
+    marginBottom: '10px'
+  }),
+  playerScore: {
+    display: 'flex',
+    width: '80px',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around'
+  },
+  capturedChecker: {
+    marginBottom: '5px'
+  }
+}
+
+const playerColors = {
+  player1: 'teal',
+  player2: 'purple'
+}
+
 afterEach(cleanup)
 
 describe('Checkerboard', () => {
@@ -13,8 +83,8 @@ describe('Checkerboard', () => {
     expect(getAllByTestId(/\[.*?\]/).length).toBe(64)
   })
 
-  it('should render a board with custom styles and dimensions', () => {
-    const { getAllByTestId } = render(<Checkerboard dimensions={10} />)
+  it('should render a board with custom styles, playerColors, and dimensions', () => {
+    const { getAllByTestId } = render(<Checkerboard dimensions={10} styles={styles} playerColors={playerColors} />)
 
     expect(getAllByTestId(/\[.*?\]/).length).toBe(100)
   })
@@ -137,7 +207,7 @@ describe('Checkerboard', () => {
 
   it("should decrement the opposing player's score when player is kinged by jump", () => {
     const { container, getByTestId, getAllByTestId, queryByTestId } = render(
-      <Checkerboard />
+      <Checkerboard styles={styles} playerColors={playerColors} />
     )
 
     getByTestId('[4, 2]').children[0].click()
