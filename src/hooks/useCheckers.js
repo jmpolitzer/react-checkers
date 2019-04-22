@@ -27,7 +27,7 @@ function useCheckers(dimensions) {
     activeSquare: null,
     isMultiJump: false,
     movesMade: 0,
-    positions: generatePositions(dimensions) // TODO: Expose this method to package
+    positions: generatePositions(dimensions)
   }
 
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -39,7 +39,7 @@ function useCheckers(dimensions) {
     movesMade,
     positions
   } = state
-  const board = createBoard(positions, dimensions) // TODO: Expose this method to package
+  const board = createBoard(positions, dimensions)
 
   /* A user can hold down the m key and make multiple jumps. */
   useEffect(() => {
