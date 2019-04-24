@@ -1,11 +1,14 @@
 const breakpoints = {
-  xSmall: 400
+  small: 700
 }
 const mq = bp => `@media (max-width: ${breakpoints[bp]}px)`
 
 const checkerboard = {
   display: 'flex',
-  flexWrap: 'wrap'
+  flexWrap: 'wrap',
+  [mq('small')]: {
+    flexDirection: 'column'
+  }
 }
 
 const checkerboardRow = {
@@ -19,7 +22,7 @@ const boardSquare = isEvenPosition => ({
   height: 45,
   width: 45,
   backgroundColor: isEvenPosition ? 'black' : 'tan',
-  [mq('xSmall')]: {
+  [mq('small')]: {
     height: 45,
     width: 45
   }
@@ -31,7 +34,7 @@ const regularChecker = color => ({
   borderRadius: '50%',
   backgroundColor: color,
   cursor: 'pointer',
-  [mq('xSmall')]: {
+  [mq('small')]: {
     height: 30,
     width: 30
   }
@@ -49,7 +52,7 @@ const kingedChecker = color => ({
   color: color,
   fontWeight: 'bold',
   fontSize: 17,
-  [mq('xSmall')]: {
+  [mq('small')]: {
     height: 22,
     width: 22,
     fontSize: 12
@@ -61,8 +64,7 @@ const playerScoreboard = {
   flexDirection: 'column',
   alignItems: 'center',
   margin: '0px 20px',
-  [mq('xSmall')]: {
-    width: `100%`,
+  [mq('small')]: {
     flexDirection: 'row',
     margin: '20px 0px'
   }
@@ -79,10 +81,10 @@ const playerName = (playerTurn, player, color) => ({
   color: playerTurn === player ? 'white' : color,
   backgroundColor: playerTurn === player ? color : 'white',
   marginBottom: '10px',
-  [mq('xSmall')]: {
+  [mq('small')]: {
     height: 45,
     width: 45,
-    marginBottom: '0px'
+    margin: '0px 10px 0px'
   }
 })
 
@@ -90,14 +92,21 @@ const playerScore = {
   display: 'flex',
   width: 80,
   flexWrap: 'wrap',
-  justifyContent: 'space-around'
+  justifyContent: 'space-around',
+  [mq('small')]: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height: 50,
+    width: 'inherit'
+  }
 }
 
 const capturedChecker = {
   marginBottom: '5px',
-  [mq('xSmall')]: {
+  [mq('small')]: {
     height: 20,
-    width: 20
+    width: 20,
+    marginRight: 5
   }
 }
 
