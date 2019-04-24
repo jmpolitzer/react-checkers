@@ -3,6 +3,18 @@ const breakpoints = {
 }
 const mq = bp => `@media (max-width: ${breakpoints[bp]}px)`
 
+const rules = {
+  margin: '30px 0px 0px 35px',
+  textAlign: 'left',
+  li: {
+    fontStyle: 'italic',
+    marginBottom: 7
+  },
+  [mq('small')]: {
+    margin: 0
+  }
+}
+
 const checkerboard = {
   display: 'flex',
   flexWrap: 'wrap',
@@ -111,6 +123,7 @@ const capturedChecker = {
 }
 
 export {
+  rules,
   checkerboard,
   checkerboardRow,
   boardSquare,
