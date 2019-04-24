@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 import useCheckers from '../hooks/useCheckers'
 
@@ -9,6 +10,7 @@ import Square from './Square'
 import { rules, checkerboard, checkerboardRow } from './styles'
 
 function Checkerboard({ dimensions = 8, styles = {}, playerColors = {} }) {
+  const [rulesAreVisible, toggleRulesVisibility] = useState(false)
   const { playerTurn, scoreboard, board, handlePick, handleMove } = useCheckers(
     dimensions
   )
@@ -51,29 +53,39 @@ function Checkerboard({ dimensions = 8, styles = {}, playerColors = {} }) {
           playerColors={playerColors}
         />
       </div>
-      <div css={styles.rules || rules}>
-        <div>Rules:</div>
-        <ol>
-          <li>If a player's circle is full, it is their turn.</li>
-          <li>Players get one move per turn.</li>
-          <li>
-            A checker is kinged when it reaches the opposite end of the board.
-          </li>
-          <li>Press and hold "m" to make multiple jumps.</li>
-          <li>Any checker can make single or multiple jumps going forward.</li>
-          <li>
-            Only a king can make single or multiple jumps going forward and
-            backward.
-          </li>
-          <li>
-            When player jumps a checker, their score will increment by one.
-          </li>
-          <li>When player jumps a king, their score will increment by two.</li>
-          <li>
-            When player is kinged, their opponent's score will decrement by one.
-          </li>
-        </ol>
+      <div onClick={() => toggleRulesVisibility(!rulesAreVisible)}>
+        {rulesAreVisible ? 'Hide Rules' : 'Show Rules'}
       </div>
+      {rulesAreVisible && (
+        <div css={styles.rules || rules}>
+          <div>Rules:</div>
+          <ol>
+            <li>If a player's circle is full, it is their turn.</li>
+            <li>Players get one move per turn.</li>
+            <li>
+              A checker is kinged when it reaches the opposite end of the board.
+            </li>
+            <li>Press and hold "m" to make multiple jumps.</li>
+            <li>
+              Any checker can make single or multiple jumps going forward.
+            </li>
+            <li>
+              Only a king can make single or multiple jumps going forward and
+              backward.
+            </li>
+            <li>
+              When player jumps a checker, their score will increment by one.
+            </li>
+            <li>
+              When player jumps a king, their score will increment by two.
+            </li>
+            <li>
+              When player is kinged, their opponent's score will decrement by
+              one.
+            </li>
+          </ol>
+        </div>
+      )}
     </div>
   )
 }
