@@ -80,7 +80,7 @@ function Checkerboard({
 
 Checkerboard.propTypes = {
   dimensions: PropTypes.number,
-  showRules: PropTypes.boolean,
+  showRules: PropTypes.bool,
   styles: PropTypes.object,
   playerColors: PropTypes.object
 }
