@@ -7,9 +7,15 @@ import { jsx } from '@emotion/core'
 
 import Player from './Player'
 import Square from './Square'
-import { rules, checkerboard, checkerboardRow } from './styles'
+import Rules from './Rules'
+import { checkerboard, checkerboardRow, showRulesButton } from './styles'
 
-function Checkerboard({ dimensions = 8, styles = {}, playerColors = {} }) {
+function Checkerboard({
+  dimensions = 8,
+  showRules = true,
+  styles = {},
+  playerColors = {}
+}) {
   const [rulesAreVisible, toggleRulesVisibility] = useState(false)
   const { playerTurn, scoreboard, board, handlePick, handleMove } = useCheckers(
     dimensions
@@ -53,37 +59,19 @@ function Checkerboard({ dimensions = 8, styles = {}, playerColors = {} }) {
           playerColors={playerColors}
         />
       </div>
-      <div onClick={() => toggleRulesVisibility(!rulesAreVisible)}>
-        {rulesAreVisible ? 'Hide Rules' : 'Show Rules'}
-      </div>
-      {rulesAreVisible && (
-        <div css={styles.rules || rules}>
-          <div>Rules:</div>
-          <ol>
-            <li>If a player's circle is full, it is their turn.</li>
-            <li>Players get one move per turn.</li>
-            <li>
-              A checker is kinged when it reaches the opposite end of the board.
-            </li>
-            <li>Press and hold "m" to make multiple jumps.</li>
-            <li>
-              Any checker can make single or multiple jumps going forward.
-            </li>
-            <li>
-              Only a king can make single or multiple jumps going forward and
-              backward.
-            </li>
-            <li>
-              When player jumps a checker, their score will increment by one.
-            </li>
-            <li>
-              When player jumps a king, their score will increment by two.
-            </li>
-            <li>
-              When player is kinged, their opponent's score will decrement by
-              one.
-            </li>
-          </ol>
+      {showRules && (
+        <div>
+          <button
+            css={
+              styles.showRulesButton
+                ? styles.showRulesButton(rulesAreVisible)
+                : showRulesButton(rulesAreVisible)
+            }
+            onClick={() => toggleRulesVisibility(!rulesAreVisible)}
+          >
+            {rulesAreVisible ? 'Hide Rules' : 'Show Rules'}
+          </button>
+          {rulesAreVisible && <Rules styles={styles} />}
         </div>
       )}
     </div>
@@ -92,6 +80,7 @@ function Checkerboard({ dimensions = 8, styles = {}, playerColors = {} }) {
 
 Checkerboard.propTypes = {
   dimensions: PropTypes.number,
+  showRules: PropTypes.boolean,
   styles: PropTypes.object,
   playerColors: PropTypes.object
 }

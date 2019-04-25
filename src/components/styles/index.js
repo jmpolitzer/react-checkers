@@ -3,10 +3,26 @@ const breakpoints = {
 }
 const mq = bp => `@media (max-width: ${breakpoints[bp]}px)`
 
+const showRulesButton = rulesAreVisible => ({
+  margin: 30,
+  padding: '5px 10px',
+  border: '2px solid red',
+  borderRadius: 5,
+  backgroundColor: rulesAreVisible ? 'red' : 'white',
+  color: rulesAreVisible ? 'white' : 'red',
+  fontWeight: 'bold',
+  ':hover': {
+    cursor: 'pointer'
+  },
+  [mq('small')]: {
+    margin: '0px 0px 15px 0px'
+  }
+})
+
 const rules = {
-  margin: '30px 0px 0px 35px',
+  marginLeft: 40,
   textAlign: 'left',
-  li: {
+  div: {
     fontStyle: 'italic',
     marginBottom: 7
   },
@@ -123,6 +139,7 @@ const capturedChecker = {
 }
 
 export {
+  showRulesButton,
   rules,
   checkerboard,
   checkerboardRow,
