@@ -5,6 +5,18 @@ import 'jest-dom/extend-expect'
 import { Checkerboard } from '../index'
 
 const styles = {
+  showRulesButton: rulesAreVisible => ({
+    margin: 30,
+    padding: '5px 10px',
+    border: '2px solid red',
+    borderRadius: 5,
+    backgroundColor: rulesAreVisible ? 'red' : 'white',
+    color: rulesAreVisible ? 'white' : 'red',
+    fontWeight: 'bold',
+    ':hover': {
+      cursor: 'pointer'
+    }
+  }),
   checkerboard: {
     display: 'flex',
     justifyContent: 'space-around',
@@ -83,10 +95,31 @@ describe('Checkerboard', () => {
     expect(getAllByTestId(/\[.*?\]/).length).toBe(64)
   })
 
-  it('should render a board with custom styles, playerColors, and dimensions', () => {
-    const { getAllByTestId } = render(<Checkerboard dimensions={10} styles={styles} playerColors={playerColors} />)
+  it('should render a board with custom styles, playerColors, dimensions, and no rules', () => {
+    const { getAllByTestId, queryByText } = render(
+      <Checkerboard
+        dimensions={10}
+        styles={styles}
+        playerColors={playerColors}
+        showRules={false}
+      />
+    )
 
     expect(getAllByTestId(/\[.*?\]/).length).toBe(100)
+    expect(queryByText('Show Rules')).not.toBeInTheDocument()
+  })
+
+  it('should render a board with toggleable rules', () => {
+    const { getByText, queryByText } = render(<Checkerboard />)
+
+    getByText('Show Rules').click()
+    expect(
+      getByText("1. If a player's circle is full, it is their turn.")
+    ).toBeInTheDocument()
+    getByText('Hide Rules').click()
+    expect(
+      queryByText("1. If a player's circle is full, it is their turn.")
+    ).not.toBeInTheDocument()
   })
 
   it("should move a single checker one forward-diagonal square if it the player's turn", () => {
