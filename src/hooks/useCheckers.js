@@ -17,7 +17,8 @@ import createBoard from '../helpers/createBoard'
 
 const engine = new CheckersEngine()
 
-function useCheckers(dimensions) {
+function useCheckers(dims) {
+  const dimensions = dims || 8
   const initialState = {
     playerTurn: 1,
     scoreboard: {

@@ -11,7 +11,7 @@ import Rules from './Rules'
 import { checkerboard, checkerboardRow, showRulesButton } from './styles'
 
 function Checkerboard({
-  dimensions = 8,
+  dimensions,
   showRules = true,
   styles = {},
   playerColors = {}
