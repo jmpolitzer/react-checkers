@@ -28,7 +28,7 @@ function Square({
           ? styles.boardSquare(isEvenPosition)
           : boardSquare(isEvenPosition)
       }
-      onClick={() => (!occupiedBy ? handleMove(square) : {})}
+      onClick={() => (!occupiedBy ? handleMove(square) : null)}
     >
       {occupiedBy !== null && isEvenPosition && (
         <Checker
