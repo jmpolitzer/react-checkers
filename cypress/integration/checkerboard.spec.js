@@ -102,7 +102,7 @@ describe('a complete game of checkers', () => {
     cy.get('body').trigger('keyup', { key: 'm' })
     cy.get('[data-testid="[2, 0]"]')
       .contains('K')
-      .should('have.css', 'height', '27px')
+      .should('have.css', 'height', '22px')
     cy.get('[data-testid="player1-checker"]').should('have.length', 2)
     cy.get('[data-testid="player2-checker"]').should('have.length', 5)
     cy.contains('1')
@@ -122,7 +122,7 @@ describe('a complete game of checkers', () => {
     cy.get('[data-testid="[1, 7]"]').click()
     cy.get('[data-testid="[1, 7]"]')
       .contains('K')
-      .should('have.css', 'height', '27px')
+      .should('have.css', 'height', '22px')
     cy.get('[data-testid="player2-checker"]').should('have.length', 4)
 
     // Red moves one
@@ -192,7 +192,7 @@ describe('a complete game of checkers', () => {
     cy.get('body').trigger('keyup', { key: 'm' })
     cy.get('[data-testid="[5, 7]"]')
       .contains('K')
-      .should('have.css', 'height', '27px')
+      .should('have.css', 'height', '22px')
     cy.get('[data-testid="player1-checker"]').should('have.length', 9)
     cy.contains('2')
       .parent()
@@ -230,7 +230,7 @@ describe('a complete game of checkers', () => {
     cy.get('body').trigger('keyup', { key: 'm' })
     cy.get('[data-testid="[4, 0]"]')
       .contains('K')
-      .should('have.css', 'height', '27px')
+      .should('have.css', 'height', '22px')
     cy.get('[data-testid="player1-checker"]').should('have.length', 8)
     cy.get('[data-testid="player2-checker"]').should('have.length', 7)
     cy.contains('1')
@@ -268,7 +268,7 @@ describe('a complete game of checkers', () => {
     cy.get('[data-testid="[1, 7]"]').click()
     cy.get('[data-testid="[1, 7]"]')
       .contains('K')
-      .should('have.css', 'height', '27px')
+      .should('have.css', 'height', '22px')
     cy.get('[data-testid="player2-checker"]').should('have.length', 9)
 
     // Red moves one

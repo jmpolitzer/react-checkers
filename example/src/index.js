@@ -7,9 +7,6 @@ import './styles.css'
 function App() {
   return (
     <div className='App'>
-      <div>
-        <h1>Checkers!</h1>
-      </div>
       <Checkerboard />
     </div>
   )
