@@ -1,6 +1,6 @@
 # react-checkers
 
-> Components for Building an Interactive Game of Checkers
+> React Tools for Building an Interactive Game of Checkers
 
 [![NPM](https://img.shields.io/npm/v/use-api-request.svg)](https://www.npmjs.com/package/react-checkers)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
@@ -12,9 +12,13 @@
 ```
 npm install --save react-checkers
 ```
+## Raison D'être
+
+Because who hasn't always dreamed of building a game of checkers using a custom React hook? 
 
 ## Example
 
+#### Using the component:
 ```
 import { Checkerboard } from 'react-checkers';
 
@@ -23,11 +27,12 @@ function MyComponent() {
 }
 ```
 
+#### Using the hook (only for the adventurous types):
 ```
 import { useCheckers } from 'react-checkers';
 
 function MyComponent() {
-  const { playerTurn, scoreboard, board, handlePick, handleMove } = useCheckers();
+  const { board, handleMove, handlePick, playerTurn, scoreboard, rules } = useCheckers();
   
   return (
     <div>
@@ -57,6 +62,16 @@ function MyComponent() {
             </div>
           )
         })}
+      </div>
+      <div>
+        <div>Rules:</div>
+        <div>
+          {rules.map((rule, i) => (
+            <div key={i}>
+              {i + 1}. {rule}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
