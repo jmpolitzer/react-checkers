@@ -19,7 +19,7 @@ Because who hasn't always dreamed of building a game of checkers using a custom 
 ## Example
 
 #### Using the component:
-```
+```javascript
 import { Checkerboard } from 'react-checkers';
 
 function MyComponent() {
@@ -28,7 +28,7 @@ function MyComponent() {
 ```
 
 #### Using the hook (only for the adventurous types):
-```
+```javascript
 import { useCheckers } from 'react-checkers';
 
 function MyComponent() {
