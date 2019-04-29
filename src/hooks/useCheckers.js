@@ -14,6 +14,7 @@ import {
 import CheckersEngine from '../engines/checkers'
 import generatePositions from '../helpers/generatePositions'
 import createBoard from '../helpers/createBoard'
+import rules from '../data/rules'
 
 const engine = new CheckersEngine()
 
@@ -142,7 +143,7 @@ function useCheckers(dims) {
     }
   }
 
-  return { playerTurn, scoreboard, board, handlePick, handleMove }
+  return { board, handleMove, handlePick, playerTurn, scoreboard, rules }
 }
 
 export default useCheckers

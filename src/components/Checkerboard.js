@@ -17,9 +17,14 @@ function Checkerboard({
   playerColors = {}
 }) {
   const [rulesAreVisible, toggleRulesVisibility] = useState(false)
-  const { playerTurn, scoreboard, board, handlePick, handleMove } = useCheckers(
-    dimensions
-  )
+  const {
+    board,
+    handleMove,
+    handlePick,
+    playerTurn,
+    scoreboard,
+    rules
+  } = useCheckers(dimensions)
 
   return (
     <div>
@@ -71,7 +76,7 @@ function Checkerboard({
           >
             {rulesAreVisible ? 'Hide Rules' : 'Show Rules'}
           </button>
-          {rulesAreVisible && <Rules styles={styles} />}
+          {rulesAreVisible && <Rules rules={rules} styles={styles} />}
         </div>
       )}
     </div>

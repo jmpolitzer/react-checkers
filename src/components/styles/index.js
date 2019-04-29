@@ -19,7 +19,7 @@ const showRulesButton = rulesAreVisible => ({
   }
 })
 
-const rules = {
+const ruleStyle = {
   marginLeft: 40,
   textAlign: 'left',
   div: {
@@ -140,7 +140,7 @@ const capturedChecker = {
 
 export {
   showRulesButton,
-  rules,
+  ruleStyle,
   checkerboard,
   checkerboardRow,
   boardSquare,
