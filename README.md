@@ -80,6 +80,28 @@ function MyComponent() {
 
 ## Usage
 
+#### The Component
+
+Adding a checkerboard to your app is a simple as dropping in the component as demonstrated in the example above. However, there are a handful of props that you can optionally provide to add some customization.
+
+`dimensions` - Integer representing the number of squares that make of the length and width of the board. Defaults to 8.
+
+`showRules` - Boolean to toggle the visibility of the rules. Defaults to true.
+
+`playerColors` - Object with two properties - `player1` & `player2` - that hold the colors associated with each player. Each property should contain a string color value. Defaults to red and black/white.
+
+`styles` - An object containing properties associated with different underlying components of `<Checkerboard />`. Each property is an object unless paired with function arguments. See the [emotion documentation](https://emotion.sh) for information on how to define your styles.
+
+* `showRulesButton(rulesAreVisible: boolean)`
+* `checkerboard`
+* `checkerboardRow`
+* `boardSquare(isEvenPosition: boolean)`
+* `regularChecker(color: string)`
+* `kingedChecker(color: string)`
+* `playerScoreboard`
+* `playerName(playerTurn: number, player: number, color: string)`
+* `playerScore`
+* `capturedChecker`
 
 ## Features
 
