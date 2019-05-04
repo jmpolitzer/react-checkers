@@ -103,11 +103,33 @@ Adding a checkerboard to your app is a simple as dropping in the component as de
 * `playerScore`
 * `capturedChecker`
 
-## Features
+#### The Hook
 
-  
-## API
+If you'd like to get very real and build your own checkerboard, the `useCheckers` hook provides a few helpers to get you started. Unlike the component, the hook only accepts a single, optional argument - `dimensions`.
 
+`board` - An array of rows, each containing an array of squares.
+
+`handlePick` - Used to select a checker to be moved.
+
+`handleMove` - Used to select the destination of the checker that is picked. Pressing and holding "m" on the keyboard will allow to player to perform multiple jumps in a single move, provided the jumps are in accordance with the rules.
+
+`playerTurn` - An integer representing whose turn it is to make a move.
+
+`scoreboard` - A running tally of the current score. See the rules below to understand how scoring is determined.
+
+`rules` - An array of the rules of the game.
+
+## Rules
+
+1. If a player's circle is full, it is their turn.
+2. Players get one move per turn.
+3. A checker is kinged when it reaches the opposite end of the board.
+4. Press and hold "m" to make multiple jumps.
+5. Any checker can make single or multiple jumps going forward.
+6. Only a king can make single or multiple jumps going forward and backward.
+7. When player jumps a checker, their score will increment by one.
+8. When player jumps a king, their score will increment by two.
+9. When player is kinged, their opponent's score will decrement by one.
 
 ## License
 
