@@ -16,6 +16,8 @@ npm install --save react-checkers
 
 Because who hasn't always dreamed of building a game of checkers using a custom React hook? 
 
+![](checkers.gif)
+
 ## Example
 
 #### Using the component:
